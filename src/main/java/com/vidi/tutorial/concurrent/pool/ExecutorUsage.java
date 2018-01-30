@@ -1,12 +1,13 @@
 package com.vidi.tutorial.concurrent.pool;
 
+import com.vidi.tutorial.concurrent.util.BaseExecutions;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
  * base usage of Executor
- *
  * @author tangleiNUAA
  */
 public class ExecutorUsage {
@@ -26,17 +27,7 @@ public class ExecutorUsage {
         executor.submit(task);
         executor.submit(task);
 
-        // ExecutorService must be shutdown in your code, or it would run until you kill the process.
-        // Here provide a way to shutdown the ExecutorService.
-        try {
-            System.out.println("Start the shutdown.");
-            executor.shutdown();
-            executor.awaitTermination(5, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            executor.shutdownNow();
-            System.out.println("Shutdown finished!");
-        }
+        // Use the stop util to shutdown the executor.
+        BaseExecutions.stopExecutor(executor);
     }
 }
