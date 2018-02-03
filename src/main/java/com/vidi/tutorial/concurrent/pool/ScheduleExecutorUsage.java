@@ -33,6 +33,6 @@ public class ScheduleExecutorUsage {
             e.printStackTrace();
         }
 
-        BaseExecutions.stopExecutor(executor);
+        BaseExecutions.stopExecutor(executor, 5);
     }
 }

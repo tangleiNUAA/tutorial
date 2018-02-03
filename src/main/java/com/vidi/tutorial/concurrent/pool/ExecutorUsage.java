@@ -28,6 +28,6 @@ public class ExecutorUsage {
         executor.submit(task);
 
         // Use the stop util to shutdown the executor.
-        BaseExecutions.stopExecutor(executor);
+        BaseExecutions.stopExecutor(executor, 5);
     }
 }

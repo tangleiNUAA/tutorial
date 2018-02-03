@@ -12,12 +12,12 @@ public class BaseExecutions {
      * Stop the ExecutorService security.
      * @param executor
      */
-    public static void stopExecutor(ExecutorService executor) {
+    public static void stopExecutor(ExecutorService executor, int sleepTime) {
         // ExecutorService must be shutdown in your code, or it would run until you kill the process.
         // Here provide a way to shutdown the ExecutorService.
         try {
             executor.shutdown();
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(sleepTime);
         } catch (InterruptedException e) {
             System.out.println("termination interrupted");
         } finally {

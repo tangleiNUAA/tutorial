@@ -27,13 +27,13 @@ public class SyncInThread {
         ExecutorService executor = Executors.newFixedThreadPool(5);
         SyncInThread sync = new SyncInThread();
         IntStream.range(0, 10000).forEach(i -> executor.submit(sync::increment));
-        BaseExecutions.stopExecutor(executor);
+        BaseExecutions.stopExecutor(executor, 5);
         System.out.println(count);
 
         SyncInThread sync1 = new SyncInThread();
         ExecutorService executor1 = Executors.newFixedThreadPool(5);
         IntStream.range(0, 10000).forEach(i -> executor1.submit(sync1::incrementSync));
-        BaseExecutions.stopExecutor(executor1);
+        BaseExecutions.stopExecutor(executor1, 5);
         System.out.println(countSync);
     }
 }

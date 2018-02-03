@@ -29,6 +29,6 @@ public class ExecutorReturn {
         System.out.println("Is down? " + future1.isDone());
         System.out.println("Is down? " + future2.isDone());
 
-        BaseExecutions.stopExecutor(executor);
+        BaseExecutions.stopExecutor(executor, 5);
     }
 }
