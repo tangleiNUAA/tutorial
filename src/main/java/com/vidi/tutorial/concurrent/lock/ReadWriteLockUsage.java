@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * This process will run forever until you kill the process or stop running in your IDE(like IntelliJ).
  * @author tangleiNUAA
  */
-public class DeadlockDemo {
+public class ReadWriteLockUsage {
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(4);
         Map<String, String> map = new HashMap<>(1);
@@ -27,19 +27,8 @@ public class DeadlockDemo {
                 BaseExecutions.sleep(3);
                 map.put("key", "value");
             } finally {
+                // If you do not liberate the lock, the read thread will never run.
                 lock.writeLock().unlock();
-            }
-            System.out.println(Thread.currentThread().getName() + " is stop");
-        });
-
-        // try write when the last thread is lock.
-        executor.submit(() -> {
-            lock.writeLock().lock();
-            try {
-                BaseExecutions.sleep(3);
-                map.put("key2", "value2");
-            } catch (Exception e) {
-                e.printStackTrace();
             }
             System.out.println(Thread.currentThread().getName() + " is stop");
         });
@@ -47,7 +36,10 @@ public class DeadlockDemo {
         // read lock
         executor.submit(() -> {
             // Next line code will enter a deadlock.
-            lock.readLock().lock();
+            while (!lock.readLock().tryLock()){
+                System.out.println(lock.readLock().tryLock());
+                BaseExecutions.sleep(1);
+            }
             try {
                 BaseExecutions.sleep(1);
                 System.out.println(map.get("key"));
