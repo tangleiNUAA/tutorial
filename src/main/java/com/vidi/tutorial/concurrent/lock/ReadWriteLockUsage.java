@@ -35,8 +35,7 @@ public class ReadWriteLockUsage {
 
         // read lock
         executor.submit(() -> {
-            // Next line code will enter a deadlock.
-            while (!lock.readLock().tryLock()){
+            while (!lock.readLock().tryLock()) {
                 System.out.println(lock.readLock().tryLock());
                 BaseExecutions.sleep(1);
             }
