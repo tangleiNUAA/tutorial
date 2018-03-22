@@ -16,6 +16,7 @@ public class ArrayListInThread {
         List<String> list = new ArrayList<>();
         ExecutorService executor = Executors.newFixedThreadPool(100);
 
+        // List will lost element while expand size if the adding operation does not finished.
         for (int i = 0; i < 10000; i++){
             executor.submit(() -> {
                 list.add("value");

@@ -16,6 +16,7 @@ public class HashMapInThread {
         Map<String, String> map = new HashMap<>();
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
+        // When a threads not finish putting a entry, at the expand step, another thread start to execute the same action, the data will lost.
         for (int i = 0; i < 10000; i++){
             int finalI = i;
             executor.submit(() -> {
